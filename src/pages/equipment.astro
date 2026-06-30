@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+import { EQUIPMENT } from '../data/content';
+
+const capabilities = [
+  { title: 'In-house production', text: 'Owning our hot-mix and batching plants means consistent material quality and no dependency on third parties.' },
+  { title: 'Self-sufficient fleet', text: 'A full spread of earthmoving, paving and compaction machinery keeps projects on schedule.' },
+  { title: 'Maintained & ready', text: 'Regular servicing and skilled operators maximise uptime across every site.' },
+];
+---
+<Layout
+  title="Equipment & Fleet"
+  description="Gupta Enterprises operates an in-house fleet of pavers, batching and hot-mix plants, rollers, graders and excavators — the backbone of on-time delivery."
+>
+  <PageHeader
+    crumb="Equipment"
+    title="An owned fleet built for on-time delivery."
+    subtitle="Self-sufficiency in plant and machinery is how we control quality and hold our schedules."
+  />
+
+  <!-- Capabilities -->
+  <section class="bg-white py-20">
+    <div class="container-x grid gap-6 md:grid-cols-3">
+      {capabilities.map((c) => (
+        <div class="reveal rounded-2xl border border-slate-200 bg-slate-50 p-7">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-900 text-accent-400">
+            <Icon name="shield" class="h-6 w-6" />
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-brand-900">{c.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">{c.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Fleet grid -->
+  <section class="bg-slate-50 py-20">
+    <div class="container-x">
+      <SectionHeading
+        eyebrow="Plant & machinery"
+        title="Our core equipment."
+        class="mb-12"
+      >
+        <p>A representative list of the machinery we deploy across road and infrastructure projects.</p>
+      </SectionHeading>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {EQUIPMENT.map((e) => (
+          <div class="reveal group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-lift">
+            <div class="flex aspect-video items-center justify-center rounded-xl bg-gradient-to-br from-brand-700 to-brand-950 bg-grid">
+              <Icon name="maintenance" class="h-10 w-10 text-white/25" />
+            </div>
+            <h3 class="mt-4 font-bold text-brand-900">{e.name}</h3>
+            <p class="mt-1 text-sm text-slate-600">{e.purpose}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-8 text-sm text-slate-500">
+        Fleet composition varies by project. Detailed equipment schedules are available on request.
+      </p>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>

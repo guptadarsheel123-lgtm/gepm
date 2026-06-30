@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CTA from '../components/CTA.astro';
+import { PROJECTS } from '../data/content';
+
+const categories = ['All', ...Array.from(new Set(PROJECTS.map((p) => p.category)))];
+---
+<Layout
+  title="Projects"
+  description="Selected highways, RCC roads, rural connectivity and EPC projects delivered by Gupta Enterprises across Madhya Pradesh."
+>
+  <PageHeader
+    crumb="Projects"
+    title="Roads and infrastructure that connect Madhya Pradesh."
+    subtitle="A selection of our work across highways, rural connectivity, RCC roads and turnkey EPC packages."
+  />
+
+  <section class="bg-white py-16 lg:py-20">
+    <div class="container-x">
+      <!-- Filters -->
+      <div id="filters" class="mb-10 flex flex-wrap gap-2.5">
+        {categories.map((c, i) => (
+          <button
+            data-filter={c}
+            class={`filter-btn rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+              i === 0
+                ? 'border-brand-900 bg-brand-900 text-white'
+                : 'border-slate-300 bg-white text-slate-600 hover:border-brand-400 hover:text-brand-900'
+            }`}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+
+      <!-- Grid -->
+      <div id="project-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {PROJECTS.map((p) => (
+          <div class="project-item" data-category={p.category}>
+            <ProjectCard project={p} />
+          </div>
+        ))}
+      </div>
+
+      <p id="empty-state" class="hidden py-16 text-center text-slate-500">
+        No projects in this category yet.
+      </p>
+    </div>
+  </section>
+
+  <CTA
+    title="Want to see more, or discuss your project?"
+    text="We’re happy to share detailed case studies and references on request."
+  />
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.project-item');
+  const empty = document.getElementById('empty-state');
+  const activeCls = ['border-brand-900', 'bg-brand-900', 'text-white'];
+  const idleCls = ['border-slate-300', 'bg-white', 'text-slate-600'];
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      buttons.forEach((b) => {
+        b.classList.remove(...activeCls);
+        b.classList.add(...idleCls);
+      });
+      btn.classList.add(...activeCls);
+      btn.classList.remove(...idleCls);
+
+      let shown = 0;
+      items.forEach((item) => {
+        const match = filter === 'All' || item.dataset.category === filter;
+        item.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      empty?.classList.toggle('hidden', shown > 0);
+    });
+  });
+</script>

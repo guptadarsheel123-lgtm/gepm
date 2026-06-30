@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import { CONTACT } from '../consts';
+
+// Edit / add openings here. Set to [] to show the "no current openings" state.
+const openings = [
+  { role: 'Site Engineer (Civil)', type: 'Full-time', location: 'Mandsaur, MP', exp: '2–5 yrs' },
+  { role: 'Quantity Surveyor', type: 'Full-time', location: 'Mandsaur, MP', exp: '3–6 yrs' },
+  { role: 'Equipment Operator (Paver/Roller)', type: 'Full-time', location: 'Project sites, MP', exp: '2+ yrs' },
+  { role: 'Project Accountant', type: 'Full-time', location: 'Mandsaur, MP', exp: '3+ yrs' },
+];
+
+const benefits = [
+  { icon: 'users', title: 'Grow with us', text: 'Be part of a team that has grown from 30 to 170+ — with room to build a career.' },
+  { icon: 'shield', title: 'Safety-first culture', text: 'We invest in safe sites and the wellbeing of every team member.' },
+  { icon: 'star', title: 'Work that matters', text: 'Build roads and infrastructure that visibly improve lives across the region.' },
+];
+---
+<Layout
+  title="Careers"
+  description="Join Gupta Enterprises — build a career in road and infrastructure construction with one of Mandsaur's most respected contractors."
+>
+  <PageHeader
+    crumb="Careers"
+    title="Build your career building the region."
+    subtitle="We’re always looking for engineers, operators and professionals who take pride in quality work."
+  />
+
+  <!-- Why join -->
+  <section class="bg-white py-20">
+    <div class="container-x grid gap-6 md:grid-cols-3">
+      {benefits.map((b) => (
+        <div class="reveal rounded-2xl border border-slate-200 bg-slate-50 p-7">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-900 text-accent-400">
+            <Icon name={b.icon as any} class="h-6 w-6" />
+          </div>
+          <h3 class="mt-4 text-lg font-bold text-brand-900">{b.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">{b.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Openings -->
+  <section class="bg-slate-50 py-20">
+    <div class="container-x">
+      <SectionHeading eyebrow="Open roles" title="Current openings." class="mb-12">
+        <p>These are sample roles — update or replace them with your live vacancies.</p>
+      </SectionHeading>
+
+      {openings.length > 0 ? (
+        <div class="space-y-4">
+          {openings.map((o) => (
+            <div class="reveal flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 class="text-lg font-bold text-brand-900">{o.role}</h3>
+                <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
+                  <span class="inline-flex items-center gap-1.5"><Icon name="users" class="h-4 w-4 text-accent-600" />{o.type}</span>
+                  <span class="inline-flex items-center gap-1.5"><Icon name="location" class="h-4 w-4 text-accent-600" />{o.location}</span>
+                  <span class="inline-flex items-center gap-1.5"><Icon name="clock" class="h-4 w-4 text-accent-600" />{o.exp}</span>
+                </div>
+              </div>
+              <Button href={`mailto:${CONTACT.email}?subject=Application: ${o.role}`} variant="secondary" arrow class="shrink-0">Apply now</Button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
+          <p class="text-slate-600">No open positions right now. Send us your CV and we’ll keep it on file.</p>
+        </div>
+      )}
+
+      <div class="mt-10 rounded-2xl bg-brand-900 p-8 text-white sm:flex sm:items-center sm:justify-between">
+        <div>
+          <h3 class="text-xl font-bold">Don’t see the right role?</h3>
+          <p class="mt-1 text-brand-100">Send your CV to {CONTACT.email} and we’ll reach out when something fits.</p>
+        </div>
+        <div class="mt-5 sm:mt-0">
+          <Button href={`mailto:${CONTACT.email}?subject=General Application`} variant="primary">Email your CV</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

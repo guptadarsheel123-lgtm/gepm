@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import { CONTACT, SITE } from '../consts';
+
+const cards = [
+  { icon: 'phone', label: 'Call us', value: CONTACT.phone, href: CONTACT.phoneHref },
+  { icon: 'mail', label: 'Email us', value: CONTACT.email, href: CONTACT.emailHref },
+  { icon: 'clock', label: 'Office hours', value: CONTACT.hours, href: null },
+];
+---
+<Layout
+  title="Contact"
+  description="Get in touch with Gupta Enterprises, Mandsaur — call, email or send us your project enquiry for highways, RCC roads, rural connectivity and EPC works."
+>
+  <PageHeader
+    crumb="Contact"
+    title="Let’s talk about your project."
+    subtitle="Tell us what you’re planning and our team will get back to you promptly."
+  />
+
+  <!-- Contact cards -->
+  <section class="bg-white pt-16">
+    <div class="container-x grid gap-5 sm:grid-cols-3">
+      {cards.map((c) => (
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-7">
+          <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-900 text-accent-400">
+            <Icon name={c.icon as any} class="h-6 w-6" />
+          </div>
+          <p class="mt-4 text-sm font-semibold uppercase tracking-wider text-slate-500">{c.label}</p>
+          {c.href ? (
+            <a href={c.href} class="mt-1 block text-lg font-bold text-brand-900 hover:text-accent-600">{c.value}</a>
+          ) : (
+            <p class="mt-1 text-lg font-bold text-brand-900">{c.value}</p>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Form + address -->
+  <section class="bg-white py-16">
+    <div class="container-x grid gap-10 lg:grid-cols-12">
+      <!-- Form -->
+      <div class="lg:col-span-7">
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-card">
+          <h2 class="text-2xl font-bold text-brand-900">Send an enquiry</h2>
+          <p class="mt-2 text-sm text-slate-600">Fields marked * are required.</p>
+
+          <form id="contact-form" class="mt-6 grid gap-5 sm:grid-cols-2">
+            <div class="sm:col-span-1">
+              <label for="name" class="mb-1.5 block text-sm font-medium text-brand-900">Name *</label>
+              <input id="name" name="name" type="text" required
+                class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20" />
+            </div>
+            <div class="sm:col-span-1">
+              <label for="phone" class="mb-1.5 block text-sm font-medium text-brand-900">Phone *</label>
+              <input id="phone" name="phone" type="tel" required
+                class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20" />
+            </div>
+            <div class="sm:col-span-1">
+              <label for="email" class="mb-1.5 block text-sm font-medium text-brand-900">Email</label>
+              <input id="email" name="email" type="email"
+                class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20" />
+            </div>
+            <div class="sm:col-span-1">
+              <label for="subject" class="mb-1.5 block text-sm font-medium text-brand-900">Subject</label>
+              <input id="subject" name="subject" type="text" placeholder="e.g. Road construction enquiry"
+                class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20" />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="message" class="mb-1.5 block text-sm font-medium text-brand-900">Message *</label>
+              <textarea id="message" name="message" rows="5" required
+                class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"></textarea>
+            </div>
+            <div class="sm:col-span-2">
+              <button type="submit"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 px-7 py-3.5 text-base font-semibold text-brand-950 transition-colors hover:bg-accent-400">
+                Send enquiry
+                <Icon name="arrow" class="h-4 w-4" />
+              </button>
+              <p id="form-status" class="mt-3 text-sm" role="status"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Address + map -->
+      <div class="lg:col-span-5">
+        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-8">
+          <h2 class="text-2xl font-bold text-brand-900">Visit our office</h2>
+          <div class="mt-5 flex gap-3">
+            <Icon name="location" class="mt-0.5 h-5 w-5 shrink-0 text-accent-600" />
+            <address class="not-italic leading-relaxed text-slate-700">
+              <strong class="text-brand-900">{SITE.name}</strong><br />
+              {CONTACT.addressLines.map((l) => (<>{l}<br /></>))}
+            </address>
+          </div>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${CONTACT.mapsQuery}`}
+            target="_blank" rel="noopener"
+            class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:text-accent-600"
+          >
+            Open in Google Maps <Icon name="arrow" class="h-4 w-4" />
+          </a>
+          <div class="mt-6 overflow-hidden rounded-2xl border border-slate-200">
+            <iframe
+              title="Gupta Enterprises location map"
+              src={`https://www.google.com/maps?q=${CONTACT.mapsQuery}&output=embed`}
+              width="100%" height="300" style="border:0;" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ email: CONTACT.email }}>
+  // To receive submissions in your inbox without any server, create a free
+  // form endpoint at https://web3forms.com or https://formspree.io and paste
+  // it below. While empty, the form opens the visitor's email app (mailto).
+  const FORM_ENDPOINT = '';
+
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const get = (k) => String(data.get(k) || '').trim();
+
+    if (FORM_ENDPOINT) {
+      status.textContent = 'Sending…';
+      status.className = 'mt-3 text-sm text-slate-500';
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: data,
+        });
+        if (res.ok) {
+          form.reset();
+          status.textContent = 'Thank you — your enquiry has been sent. We’ll be in touch shortly.';
+          status.className = 'mt-3 text-sm font-medium text-green-700';
+        } else {
+          throw new Error('Request failed');
+        }
+      } catch {
+        status.textContent = 'Something went wrong. Please call or email us directly.';
+        status.className = 'mt-3 text-sm font-medium text-red-700';
+      }
+    } else {
+      // Fallback: open the visitor's email client with a pre-filled message.
+      const body =
+        `Name: ${get('name')}%0D%0APhone: ${get('phone')}%0D%0AEmail: ${get('email')}%0D%0A%0D%0A${get('message')}`;
+      const subject = get('subject') || 'Website enquiry';
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${body}`;
+      status.textContent = 'Opening your email app… If nothing happens, email us directly at ' + email;
+      status.className = 'mt-3 text-sm text-slate-600';
+    }
+  });
+</script>

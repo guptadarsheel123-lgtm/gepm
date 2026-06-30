@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+import { SERVICES } from '../data/content';
+
+const process = [
+  { title: 'Survey & Design', text: 'Site survey, soil testing and engineering design tailored to traffic and terrain.' },
+  { title: 'Procurement', text: 'Quality materials and in-house mix/batching plants for consistent inputs.' },
+  { title: 'Construction', text: 'Disciplined execution with layer-by-layer quality control and safety.' },
+  { title: 'Handover & O&M', text: 'Testing, handover and performance-based maintenance through the liability period.' },
+];
+---
+<Layout
+  title="Services"
+  description="Highway construction, RCC roads, rural connectivity, EPC contracts, bridges and maintenance — the full range of infrastructure services offered by Gupta Enterprises."
+>
+  <PageHeader
+    crumb="Services"
+    title="Full-lifecycle road & infrastructure services."
+    subtitle="Six core capabilities, one accountable partner — from the first survey to long-term maintenance."
+  />
+
+  <!-- Services detail -->
+  <section class="bg-white py-20">
+    <div class="container-x space-y-6">
+      {SERVICES.map((s, i) => (
+        <article
+          id={s.slug}
+          class="reveal grid scroll-mt-28 gap-8 rounded-3xl border border-slate-200 bg-white p-8 shadow-card lg:grid-cols-12 lg:items-center lg:p-10"
+        >
+          <div class={`lg:col-span-7 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+            <div class="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-brand-900 text-accent-400">
+              <Icon name={s.icon} class="h-7 w-7" />
+            </div>
+            <h2 class="mt-5 text-2xl font-bold text-brand-900">{s.title}</h2>
+            <p class="mt-3 leading-relaxed text-slate-600">{s.description}</p>
+            <ul class="mt-5 flex flex-wrap gap-2.5">
+              {s.highlights.map((h) => (
+                <li class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3.5 py-1.5 text-sm font-medium text-slate-700">
+                  <Icon name="check" class="h-4 w-4 text-accent-600" />{h}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class={`lg:col-span-5 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+            <div class="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-brand-700 to-brand-950 bg-grid">
+              <Icon name={s.icon} class="h-24 w-24 text-white/20" />
+              <span class="absolute bottom-4 left-4 rounded-full bg-accent-500 px-3 py-1 text-xs font-semibold text-brand-950">
+                {String(i + 1).padStart(2, '0')} / {String(SERVICES.length).padStart(2, '0')}
+              </span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="bg-slate-50 py-20">
+    <div class="container-x">
+      <SectionHeading
+        align="center"
+        eyebrow="How we deliver"
+        title="A disciplined process, end to end."
+        class="mb-12"
+      />
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {process.map((p, i) => (
+          <div class="reveal relative rounded-2xl border border-slate-200 bg-white p-6">
+            <span class="font-display text-4xl font-bold text-slate-200">{i + 1}</span>
+            <h3 class="mt-2 text-lg font-bold text-brand-900">{p.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{p.text}</p>
+            {i < process.length - 1 && (
+              <Icon name="arrow" class="absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-accent-500 lg:block" />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>

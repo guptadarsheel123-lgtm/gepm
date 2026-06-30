@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+import { CLIENTS } from '../data/content';
+
+const certifications = [
+  { title: 'Registered Government Contractor', text: 'Empanelled with state works departments and rural road authorities.' },
+  { title: 'Quality-led execution', text: 'Works delivered to MoRTH / PMGSY technical specifications.' },
+  { title: 'GST & statutory compliant', text: 'Fully compliant on tax, labour and statutory obligations.' },
+];
+---
+<Layout
+  title="Clients & Approvals"
+  description="Gupta Enterprises works with government bodies and authorities including PWD, MPRRDA, PIU Mandsaur and BSNL, delivering to PMGSY and MoRTH standards."
+>
+  <PageHeader
+    crumb="Clients"
+    title="Trusted by the authorities that build the region."
+    subtitle="We have earned repeat confidence from government bodies across Madhya Pradesh through dependable, standards-compliant delivery."
+  />
+
+  <!-- Clients -->
+  <section class="bg-white py-20">
+    <div class="container-x">
+      <SectionHeading
+        align="center"
+        eyebrow="Who we work with"
+        title="Clients & government bodies."
+        class="mb-12"
+      />
+      <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-3">
+        {CLIENTS.map((c) => (
+          <div class="reveal flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-6 py-10 text-center">
+            <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-900">
+              <span class="font-display text-lg font-bold text-accent-400">{c.abbr}</span>
+            </div>
+            <p class="mt-4 font-semibold text-brand-900">{c.name}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-8 text-center text-sm text-slate-500">
+        Client logos are represented by their abbreviations. Official logos can be added on confirmation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Approvals / certifications -->
+  <section class="bg-slate-50 py-20">
+    <div class="container-x">
+      <SectionHeading
+        eyebrow="Credentials"
+        title="Approvals & compliance."
+        class="mb-12"
+      >
+        <p>Note: the items below are typical credentials for a contractor of our standing — confirm and update with your exact registrations and certificate numbers before publishing.</p>
+      </SectionHeading>
+      <div class="grid gap-6 md:grid-cols-3">
+        {certifications.map((c) => (
+          <div class="reveal rounded-2xl border border-slate-200 bg-white p-7">
+            <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent-100 text-accent-700">
+              <Icon name="shield" class="h-6 w-6" />
+            </div>
+            <h3 class="mt-4 text-lg font-bold text-brand-900">{c.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="Looking for a dependable, empanelled contractor?"
+    text="We’d be glad to share our registrations, past performance certificates and references."
+  />
+</Layout>

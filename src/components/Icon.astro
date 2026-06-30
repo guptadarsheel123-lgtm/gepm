@@ -1,0 +1,47 @@
+---
+// Lightweight inline icon set (currentColor, stroke-based) used across the site.
+interface Props {
+  name:
+    | 'highway' | 'road' | 'epc' | 'rcc' | 'bridge' | 'maintenance'
+    | 'phone' | 'mail' | 'location' | 'clock' | 'arrow' | 'arrow-down'
+    | 'check' | 'menu' | 'close' | 'star' | 'shield' | 'users'
+    | 'facebook' | 'instagram' | 'linkedin';
+  class?: string;
+}
+const { name, class: className = 'w-6 h-6' } = Astro.props;
+
+const stroke = {
+  highway: '<path d="M4 21 8 3M20 21 16 3M12 4v2M12 10v2M12 16v2"/>',
+  road: '<path d="M5 21 9 3M19 21 15 3M12 3v3M12 11v3M12 19v1"/>',
+  epc: '<path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-5h6v5M10 11h.01M14 11h.01"/>',
+  rcc: '<path d="M3 7h18M3 12h18M3 17h18M7 7v10M17 7v10"/>',
+  bridge: '<path d="M3 9v9M21 9v9M3 12c4-5 14-5 18 0M7 12.5V18M12 11v7M17 12.5V18"/>',
+  maintenance: '<path d="m14.7 6.3 3 3M3 21l3.5-1 9.8-9.8a2.1 2.1 0 0 0 0-3l-.6-.6a2.1 2.1 0 0 0-3 0L3 16.5 3 21Z"/>',
+  phone: '<path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.24 1Z"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  location: '<path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  'arrow-down': '<path d="M12 5v14M6 13l6 6 6-6"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  star: '<path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.9 6.6 19.5l1.2-6-4.5-4.2 6.1-.7Z"/>',
+  shield: '<path d="M12 3 5 6v5c0 4.4 3 8 7 9 4-1 7-4.6 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>',
+  users: '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5.5a3 3 0 0 1 0 5.4M21 20a6 6 0 0 0-4-5.6"/>',
+  facebook: '<path d="M14 8.5h2V5.7h-2.2C11.5 5.7 10.5 7 10.5 9v1.6H8.5v2.8h2V21h2.9v-7.6h2.2l.4-2.8h-2.6V9.2c0-.5.2-.7.8-.7Z"/>',
+  instagram: '<rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.3"/><circle cx="16.6" cy="7.4" r="0.6" fill="currentColor"/>',
+  linkedin: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10.5V17M8 7.6v.01M12 17v-3.6c0-1.2.9-2.1 2-2.1s2 .9 2 2.1V17"/>',
+}[Astro.props.name];
+---
+<svg
+  class={className}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  set:html={stroke}
+/>

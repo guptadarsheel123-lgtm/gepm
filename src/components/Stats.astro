@@ -1,0 +1,60 @@
+---
+import { STATS } from '../data/content';
+interface Props { variant?: 'dark' | 'light' }
+const { variant = 'dark' } = Astro.props;
+const dark = variant === 'dark';
+const isYear = (s: (typeof STATS)[number]) => s.value > 1900 && !s.suffix && !s.prefix;
+const fmt = (s: (typeof STATS)[number]) =>
+  `${s.prefix ?? ''}${isYear(s) ? s.value : s.value.toLocaleString('en-IN')}${s.suffix ?? ''}`;
+---
+<div class={`grid grid-cols-2 gap-px overflow-hidden rounded-2xl lg:grid-cols-4 ${dark ? 'bg-white/10' : 'bg-slate-200'}`}>
+  {STATS.map((s) => (
+    <div class={`flex flex-col items-center justify-center px-4 py-8 text-center ${dark ? 'bg-brand-900' : 'bg-white'}`}>
+      <div
+        class={`font-display text-4xl font-bold tabular-nums sm:text-5xl ${dark ? 'text-white' : 'text-brand-900'}`}
+        data-count={s.value}
+        data-prefix={s.prefix ?? ''}
+        data-suffix={s.suffix ?? ''}
+      >
+        {fmt(s)}
+      </div>
+      <div class={`mt-2 text-sm font-medium ${dark ? 'text-brand-200' : 'text-slate-500'}`}>{s.label}</div>
+    </div>
+  ))}
+</div>
+
+<script>
+  const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+  function animate(el: HTMLElement) {
+    const target = Number(el.dataset.count || '0');
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const isYear = target > 1900 && suffix === '' && prefix === '';
+    const duration = 1600;
+    const start = performance.now();
+    function frame(now: number) {
+      const p = Math.min((now - start) / duration, 1);
+      const val = Math.round(easeOut(p) * target);
+      el.textContent = `${prefix}${isYear ? val : val.toLocaleString('en-IN')}${suffix}`;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            animate(e.target as HTMLElement);
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.25 }
+    );
+    counters.forEach((c) => io.observe(c));
+  } else {
+    counters.forEach((c) => animate(c));
+  }
+</script>

@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/sora';
+@import '@fontsource-variable/inter';
+
+/* ----------------------------------------------------------------------------
+   Gupta Enterprises — Design tokens
+   Brand: deep engineering navy + safety amber accent.
+---------------------------------------------------------------------------- */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Sora Variable', 'Inter Variable', ui-sans-serif, sans-serif;
+
+  /* Brand navy */
+  --color-brand-50: #ecf2fb;
+  --color-brand-100: #cfe0f5;
+  --color-brand-200: #9fc0eb;
+  --color-brand-300: #6f9fdd;
+  --color-brand-400: #4880c9;
+  --color-brand-500: #2f63a8;
+  --color-brand-600: #244f87;
+  --color-brand-700: #1c3e6b;
+  --color-brand-800: #142d4f;
+  --color-brand-900: #0e2138;
+  --color-brand-950: #081320;
+
+  /* Safety amber accent */
+  --color-accent-50: #fff8eb;
+  --color-accent-100: #ffeec6;
+  --color-accent-200: #ffd988;
+  --color-accent-300: #ffc14d;
+  --color-accent-400: #ffa91f;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+  --color-accent-800: #92400e;
+  --color-accent-900: #78350f;
+
+  --shadow-card: 0 1px 2px rgba(8, 19, 32, 0.04), 0 8px 24px -12px rgba(8, 19, 32, 0.18);
+  --shadow-lift: 0 18px 40px -18px rgba(8, 19, 32, 0.35);
+}
+
+/* ----------------------------------------------------------------------------
+   Base
+---------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-brand-900);
+  background-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+::selection {
+  background: var(--color-accent-500);
+  color: var(--color-brand-950);
+}
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------------------------------------------
+   Reusable utility classes
+---------------------------------------------------------------------------- */
+@layer components {
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 80rem; /* 1280px */
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x { padding-inline: 2rem; }
+  }
+
+  /* Subtle topographic / blueprint grid used behind dark sections */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .text-balance { text-wrap: balance; }
+}
+
+/* Reveal-on-scroll animation.
+   Hidden state only applies when JS adds `.reveal-on` to <html>, so the site
+   degrades to fully-visible content if JS is unavailable. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-on .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-on .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

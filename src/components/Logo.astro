@@ -1,0 +1,14 @@
+---
+// Placeholder brand mark for Gupta Enterprises — a road/chevron monogram.
+// Swap this out for the real logo (drop an SVG/PNG in /public and reference it)
+// once brand assets are available.
+interface Props { class?: string }
+const { class: className = 'h-10 w-10' } = Astro.props;
+---
+<svg class={className} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+  <rect x="1" y="1" width="46" height="46" rx="11" fill="#0e2138" />
+  <rect x="1" y="1" width="46" height="46" rx="11" stroke="#f59e0b" stroke-width="1.5" />
+  <!-- perspective road -->
+  <path d="M16 37 L22 12 H26 L32 37 Z" fill="#1c3e6b" />
+  <path d="M24 13 v3 M24 20 v3 M24 27 v3 M24 34 v2" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" />
+</svg>

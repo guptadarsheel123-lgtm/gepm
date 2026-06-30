@@ -1,0 +1,119 @@
+---
+import { NAV, CONTACT, SITE } from '../consts';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+<header id="site-header" class="sticky top-0 z-40 w-full">
+  <!-- Top utility bar -->
+  <div class="hidden bg-brand-950 text-brand-100 md:block">
+    <div class="container-x flex h-10 items-center justify-between text-xs">
+      <p class="flex items-center gap-2">
+        <Icon name="location" class="h-4 w-4 text-accent-400" />
+        Mhow–Neemuch Road, Mandsaur, Madhya Pradesh
+      </p>
+      <div class="flex items-center gap-5">
+        <a href={CONTACT.phoneHref} class="flex items-center gap-1.5 hover:text-white">
+          <Icon name="phone" class="h-3.5 w-3.5 text-accent-400" />{CONTACT.phone}
+        </a>
+        <a href={CONTACT.emailHref} class="flex items-center gap-1.5 hover:text-white">
+          <Icon name="mail" class="h-3.5 w-3.5 text-accent-400" />{CONTACT.email}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main nav -->
+  <div
+    id="nav-shell"
+    class="border-b border-white/10 bg-brand-900/95 backdrop-blur transition-colors duration-300"
+  >
+    <div class="container-x flex h-16 items-center justify-between lg:h-[4.5rem]">
+      <a href="/" class="flex items-center gap-3" aria-label={`${SITE.name} home`}>
+        <Logo class="h-10 w-10" />
+        <span class="flex flex-col leading-none">
+          <span class="font-display text-lg font-bold tracking-tight text-white">{SITE.name}</span>
+          <span class="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-accent-400">
+            Infrastructure · Roads · EPC
+          </span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        {NAV.map((item) => (
+          <a
+            href={item.href}
+            class={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${
+              isActive(item.href)
+                ? 'text-accent-400'
+                : 'text-brand-100 hover:bg-white/10 hover:text-white'
+            }`}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="hidden lg:block">
+        <a
+          href="/contact/"
+          class="inline-flex items-center gap-2 rounded-full bg-accent-500 px-5 py-2.5 text-sm font-semibold text-brand-950 transition-colors hover:bg-accent-400"
+        >
+          Request a Quote
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+
+      <!-- Mobile toggle -->
+      <button
+        id="menu-toggle"
+        class="inline-flex items-center justify-center rounded-md p-2 text-white lg:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" class="h-6 w-6" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden border-b border-white/10 bg-brand-900 lg:hidden"
+  >
+    <nav class="container-x flex flex-col gap-1 py-4" aria-label="Mobile">
+      {NAV.map((item) => (
+        <a
+          href={item.href}
+          class={`rounded-lg px-3 py-2.5 text-base font-medium ${
+            isActive(item.href) ? 'bg-white/10 text-accent-400' : 'text-brand-100'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href="/contact/"
+        class="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 px-5 py-3 text-sm font-semibold text-brand-950"
+      >
+        Request a Quote
+        <Icon name="arrow" class="h-4 w-4" />
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+</script>

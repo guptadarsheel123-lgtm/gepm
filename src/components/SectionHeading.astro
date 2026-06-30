@@ -1,0 +1,27 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  align?: 'left' | 'center';
+  light?: boolean;
+  class?: string;
+}
+const { eyebrow, title, align = 'left', light = false, class: className = '' } = Astro.props;
+const alignment = align === 'center' ? 'text-center mx-auto' : 'text-left';
+---
+<div class={`max-w-2xl ${alignment} ${className}`}>
+  {eyebrow && (
+    <p class={`mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider ${align === 'center' ? 'justify-center' : ''} ${light ? 'text-accent-400' : 'text-accent-600'}`}>
+      <span class="inline-block h-px w-6 bg-accent-500"></span>
+      {eyebrow}
+    </p>
+  )}
+  <h2 class={`text-3xl sm:text-4xl text-balance ${light ? 'text-white' : 'text-brand-900'}`}>
+    {title}
+  </h2>
+  {Astro.slots.has('default') && (
+    <div class={`mt-4 text-base leading-relaxed ${light ? 'text-brand-100' : 'text-slate-600'}`}>
+      <slot />
+    </div>
+  )}
+</div>

@@ -1,0 +1,195 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Stats from '../components/Stats.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CTA from '../components/CTA.astro';
+import { SERVICES, PROJECTS, VALUES, CLIENTS } from '../data/content';
+import { SITE } from '../consts';
+
+const featuredServices = SERVICES.slice(0, 6);
+const featuredProjects = PROJECTS.slice(0, 4);
+const trust = ['MoRTH-grade quality', 'MPRRDA & PWD empanelled', '170+ workforce', 'In-house equipment fleet'];
+---
+<Layout>
+  <!-- ============================ HERO ============================ -->
+  <section class="relative overflow-hidden bg-brand-950 text-white">
+    <div class="absolute inset-0 bg-grid opacity-70"></div>
+    <div class="absolute -left-40 top-0 h-[28rem] w-[28rem] rounded-full bg-brand-500/20 blur-3xl"></div>
+    <div class="absolute -right-32 bottom-0 h-[26rem] w-[26rem] rounded-full bg-accent-500/10 blur-3xl"></div>
+
+    <div class="container-x relative grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
+      <div class="lg:col-span-7">
+        <p class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-medium text-brand-100">
+          <span class="h-2 w-2 rounded-full bg-accent-500"></span>
+          Infrastructure & Road Construction · Since {SITE.foundedYear}
+        </p>
+        <h1 class="mt-6 text-4xl font-bold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          Building the roads that move
+          <span class="text-accent-400"> Madhya Pradesh </span>
+          forward.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-brand-100">
+          From a first-generation start in Mandsaur to one of the region’s most
+          technically proficient contractors — Gupta Enterprises delivers highways,
+          RCC roads, rural connectivity and turnkey EPC projects built to last.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href="/projects/" variant="primary" size="lg" arrow>View Our Projects</Button>
+          <Button href="/contact/" variant="white" size="lg">Request a Quote</Button>
+        </div>
+        <ul class="mt-10 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-4">
+          {trust.map((t) => (
+            <li class="flex items-center gap-2 text-sm text-brand-200">
+              <Icon name="check" class="h-4 w-4 shrink-0 text-accent-400" />{t}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Hero side card -->
+      <div class="lg:col-span-5">
+        <div class="relative rounded-3xl border border-white/10 bg-white/5 p-2 backdrop-blur">
+          <div class="rounded-[1.25rem] bg-gradient-to-br from-brand-800 to-brand-950 bg-grid p-8">
+            <div class="flex items-center gap-3">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent-500 text-brand-950">
+                <Icon name="shield" class="h-6 w-6" />
+              </div>
+              <div>
+                <p class="font-display text-lg font-bold">Trusted by authorities</p>
+                <p class="text-sm text-brand-200">PWD · MPRRDA · PIU · BSNL</p>
+              </div>
+            </div>
+            <div class="my-6 h-px bg-white/10"></div>
+            <p class="text-sm leading-relaxed text-brand-100">
+              “Delivered a Public Works Department EPC package
+              <span class="font-semibold text-white"> six months ahead of schedule</span> —
+              a measure of how we plan, resource and execute.”
+            </p>
+            <div class="mt-6 grid grid-cols-2 gap-4">
+              <div class="rounded-xl bg-white/5 p-4">
+                <p class="font-display text-3xl font-bold text-accent-400">2001</p>
+                <p class="mt-1 text-xs text-brand-200">Year established</p>
+              </div>
+              <div class="rounded-xl bg-white/5 p-4">
+                <p class="font-display text-3xl font-bold text-accent-400">170+</p>
+                <p class="mt-1 text-xs text-brand-200">Skilled team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ STATS ============================ -->
+  <section class="relative -mt-px bg-white">
+    <div class="container-x -translate-y-10">
+      <div class="rounded-2xl bg-brand-900 p-1.5 shadow-lift">
+        <Stats variant="dark" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ ABOUT TEASER ============================ -->
+  <section class="bg-white pb-20">
+    <div class="container-x grid gap-12 lg:grid-cols-2 lg:items-center">
+      <div class="reveal">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-brand-700 to-brand-950 bg-grid"></div>
+            <div class="rounded-2xl bg-accent-500 p-6 text-brand-950">
+              <p class="font-display text-3xl font-bold">23+</p>
+              <p class="mt-1 text-sm font-medium">Years building MP’s roads</p>
+            </div>
+          </div>
+          <div class="mt-8 space-y-4">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <Icon name="users" class="h-7 w-7 text-brand-700" />
+              <p class="mt-3 font-display text-lg font-bold text-brand-900">From 30 to 170+</p>
+              <p class="mt-1 text-sm text-slate-600">A team grown on reliable delivery.</p>
+            </div>
+            <div class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-brand-600 to-brand-900 bg-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <SectionHeading eyebrow="Who we are" title="A Mandsaur contractor with a reputation for getting it right.">
+          <p>
+            Founded in 2001 by {SITE.founder} as a first-generation entrepreneur,
+            Gupta Enterprises began with small-scale works and a team of around 30.
+            Today we are recognised as one of the most technically proficient and
+            productive construction firms in the region.
+          </p>
+        </SectionHeading>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {VALUES.map((v) => (
+            <div class="flex gap-3">
+              <Icon name="check" class="mt-1 h-5 w-5 shrink-0 text-accent-600" />
+              <div>
+                <p class="font-semibold text-brand-900">{v.title}</p>
+                <p class="mt-1 text-sm text-slate-600">{v.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="mt-8">
+          <Button href="/about/" variant="secondary" arrow>More about us</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ SERVICES ============================ -->
+  <section class="bg-slate-50 py-20 lg:py-24">
+    <div class="container-x">
+      <div class="flex flex-col items-end justify-between gap-6 sm:flex-row">
+        <SectionHeading eyebrow="What we do" title="Infrastructure services, end to end.">
+          <p>Six core capabilities spanning the full lifecycle of a road — from earthwork to handover and maintenance.</p>
+        </SectionHeading>
+        <Button href="/services/" variant="ghost" arrow class="shrink-0">All services</Button>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {featuredServices.map((s) => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PROJECTS ============================ -->
+  <section class="bg-white py-20 lg:py-24">
+    <div class="container-x">
+      <div class="flex flex-col items-end justify-between gap-6 sm:flex-row">
+        <SectionHeading eyebrow="Selected work" title="Projects that connect communities.">
+          <p>A snapshot of highways, rural roads and EPC packages delivered across Madhya Pradesh.</p>
+        </SectionHeading>
+        <Button href="/projects/" variant="ghost" arrow class="shrink-0">All projects</Button>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2">
+        {featuredProjects.map((p) => <ProjectCard project={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CLIENTS ============================ -->
+  <section class="border-y border-slate-200 bg-slate-50 py-14">
+    <div class="container-x">
+      <p class="text-center text-sm font-semibold uppercase tracking-wider text-slate-500">
+        Trusted by government bodies & authorities across the region
+      </p>
+      <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        {CLIENTS.map((c) => (
+          <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-5 text-center">
+            <span class="font-display text-xl font-bold text-brand-800">{c.abbr}</span>
+            <span class="mt-1 text-[0.7rem] leading-tight text-slate-500">{c.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>
