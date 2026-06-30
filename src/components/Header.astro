@@ -2,10 +2,12 @@
 import { NAV, CONTACT, SITE } from '../consts';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
+import { url } from '../lib/url';
 
-const path = Astro.url.pathname;
+const norm = (s: string) => (s.endsWith('/') ? s : s + '/');
+const here = norm(Astro.url.pathname);
 const isActive = (href: string) =>
-  href === '/' ? path === '/' : path.startsWith(href);
+  href === '/' ? here === norm(url('/')) : here.startsWith(norm(url(href)));
 ---
 <header id="site-header" class="sticky top-0 z-40 w-full">
   <!-- Top utility bar -->
@@ -32,7 +34,7 @@ const isActive = (href: string) =>
     class="border-b border-white/10 bg-brand-900/95 backdrop-blur transition-colors duration-300"
   >
     <div class="container-x flex h-16 items-center justify-between lg:h-[4.5rem]">
-      <a href="/" class="flex items-center gap-3" aria-label={`${SITE.name} home`}>
+      <a href={url('/')} class="flex items-center gap-3" aria-label={`${SITE.name} home`}>
         <Logo class="h-10 w-10" />
         <span class="flex flex-col leading-none">
           <span class="font-display text-lg font-bold tracking-tight text-white">{SITE.name}</span>
@@ -45,7 +47,7 @@ const isActive = (href: string) =>
       <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
         {NAV.map((item) => (
           <a
-            href={item.href}
+            href={url(item.href)}
             class={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${
               isActive(item.href)
                 ? 'text-accent-400'
@@ -60,7 +62,7 @@ const isActive = (href: string) =>
 
       <div class="hidden lg:block">
         <a
-          href="/contact/"
+          href={url('/contact/')}
           class="inline-flex items-center gap-2 rounded-full bg-accent-500 px-5 py-2.5 text-sm font-semibold text-brand-950 transition-colors hover:bg-accent-400"
         >
           Request a Quote
@@ -89,7 +91,7 @@ const isActive = (href: string) =>
     <nav class="container-x flex flex-col gap-1 py-4" aria-label="Mobile">
       {NAV.map((item) => (
         <a
-          href={item.href}
+          href={url(item.href)}
           class={`rounded-lg px-3 py-2.5 text-base font-medium ${
             isActive(item.href) ? 'bg-white/10 text-accent-400' : 'text-brand-100'
           }`}
@@ -98,7 +100,7 @@ const isActive = (href: string) =>
         </a>
       ))}
       <a
-        href="/contact/"
+        href={url('/contact/')}
         class="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-accent-500 px-5 py-3 text-sm font-semibold text-brand-950"
       >
         Request a Quote

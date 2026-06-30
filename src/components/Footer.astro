@@ -3,6 +3,7 @@ import { NAV, CONTACT, SOCIAL, SITE } from '../consts';
 import { SERVICES } from '../data/content';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
+import { url } from '../lib/url';
 
 const year = new Date().getFullYear();
 ---
@@ -10,7 +11,7 @@ const year = new Date().getFullYear();
   <div class="container-x grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
     <!-- Brand -->
     <div class="lg:col-span-4">
-      <a href="/" class="flex items-center gap-3" aria-label={`${SITE.name} home`}>
+      <a href={url('/')} class="flex items-center gap-3" aria-label={`${SITE.name} home`}>
         <Logo class="h-11 w-11" />
         <span class="font-display text-xl font-bold text-white">{SITE.name}</span>
       </a>
@@ -35,7 +36,7 @@ const year = new Date().getFullYear();
       <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-white">Company</h3>
       <ul class="mt-4 space-y-2.5 text-sm">
         {NAV.map((item) => (
-          <li><a href={item.href} class="text-brand-200 transition-colors hover:text-accent-400">{item.label}</a></li>
+          <li><a href={url(item.href)} class="text-brand-200 transition-colors hover:text-accent-400">{item.label}</a></li>
         ))}
       </ul>
     </div>
@@ -45,7 +46,7 @@ const year = new Date().getFullYear();
       <h3 class="font-display text-sm font-semibold uppercase tracking-wider text-white">Services</h3>
       <ul class="mt-4 space-y-2.5 text-sm">
         {SERVICES.slice(0, 5).map((s) => (
-          <li><a href="/services/" class="text-brand-200 transition-colors hover:text-accent-400">{s.title}</a></li>
+          <li><a href={url('/services/')} class="text-brand-200 transition-colors hover:text-accent-400">{s.title}</a></li>
         ))}
       </ul>
     </div>

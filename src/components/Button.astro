@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { url } from '../lib/url';
 interface Props {
   href: string;
   variant?: 'primary' | 'secondary' | 'ghost' | 'white';
@@ -22,7 +23,7 @@ const variants = {
   white: 'bg-white text-brand-900 hover:bg-brand-50 shadow-sm',
 };
 ---
-<a href={href} class={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
+<a href={url(href)} class={`${base} ${sizes[size]} ${variants[variant]} ${className}`}>
   <slot />
   {arrow && <Icon name="arrow" class="w-4 h-4 transition-transform group-hover:translate-x-1" />}
 </a>

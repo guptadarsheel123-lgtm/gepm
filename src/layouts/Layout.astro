@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../consts';
+import { url } from '../lib/url';
 
 interface Props {
   title?: string;
@@ -44,7 +45,7 @@ const orgSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <meta name="generator" content={Astro.generator} />
 
     <title>{pageTitle}</title>
@@ -57,7 +58,7 @@ const orgSchema = {
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(image, Astro.site ?? SITE.url).href} />
+    <meta property="og:image" content={new URL(url(image), Astro.site ?? SITE.url).href} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

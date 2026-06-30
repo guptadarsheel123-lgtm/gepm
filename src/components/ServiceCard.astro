@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { url } from '../lib/url';
 import type { Service } from '../data/content';
 interface Props { service: Service }
 const { service } = Astro.props;
@@ -18,7 +19,7 @@ const { service } = Astro.props;
     ))}
   </ul>
   <a
-    href="/services/"
+    href={url('/services/')}
     class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 transition-colors group-hover:text-accent-600"
     aria-label={`Learn more about ${service.title}`}
   >
