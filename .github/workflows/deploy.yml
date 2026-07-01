@@ -5,29 +5,20 @@ on:
     branches: [claude/gupta-enterprises-redesign-m1b9y6]
   workflow_dispatch:
 
+# Only needs to write the gh-pages branch — avoids the Pages API entirely.
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# Allow one concurrent deployment; don't cancel an in-progress run.
 concurrency:
-  group: pages
+  group: deploy-gh-pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
-        with:
-          # Create the Pages site automatically if it isn't enabled yet.
-          enablement: true
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -40,22 +31,17 @@ jobs:
 
       - name: Build with Astro
         env:
-          PAGES_SITE: ${{ steps.pages.outputs.origin }}
-          PAGES_BASE: ${{ steps.pages.outputs.base_path }}
+          PAGES_SITE: https://guptadarsheel123-lgtm.github.io
+          PAGES_BASE: /gepm
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
+      - name: Add .nojekyll
+        run: touch dist/.nojekyll
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true
