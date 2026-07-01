@@ -10,8 +10,18 @@ export type Stat = { value: number; suffix?: string; prefix?: string; label: str
 export const STATS: Stat[] = [
   { value: 2001, label: 'Established', prefix: '' },
   { value: 170, suffix: '+', label: 'Skilled professionals' },
-  { value: 500, suffix: '+ km', label: 'Roads constructed' }, // TODO: verify
-  { value: 120, suffix: '+', label: 'Projects delivered' }, // TODO: verify
+  { value: 62, prefix: '₹', suffix: ' Cr+', label: 'Turnover (FY 2023–24)' },
+  { value: 40, suffix: '+', label: 'Fleet & plant units' },
+];
+
+// Annual turnover, in ₹ Lacs (source: company records).
+export type Turnover = { fy: string; amount: number };
+export const TURNOVER: Turnover[] = [
+  { fy: '2019–20', amount: 1611.87 },
+  { fy: '2020–21', amount: 2562.48 },
+  { fy: '2021–22', amount: 1946.53 },
+  { fy: '2022–23', amount: 4975.79 },
+  { fy: '2023–24', amount: 6202.56 },
 ];
 
 export type Service = {
@@ -82,7 +92,7 @@ export const SERVICES: Service[] = [
 
 export type Project = {
   title: string;
-  category: 'Highway' | 'RCC Road' | 'Rural Road' | 'EPC' | 'Bridge';
+  category: 'Highway' | 'RCC Road' | 'Rural Road' | 'EPC' | 'Bridge' | 'Cement Plant';
   location: string;
   client: string;
   year: string;
@@ -91,6 +101,15 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
+  {
+    title: 'GCPL Cement Plant — Civil Works',
+    category: 'Cement Plant',
+    location: 'Sagrana, Neemuch, MP',
+    client: 'Goldcrest Private Ltd (GCPL) · KHD Humboldt Wedag',
+    year: 'Ongoing · since Feb 2025',
+    scope: 'Civil works for the Goldcrest (GCPL) cement plant executed by KHD Humboldt Wedag.',
+    highlight: 'Ongoing project',
+  },
   {
     title: 'PWD EPC Road Package',
     category: 'EPC',
@@ -203,17 +222,19 @@ export const TIMELINE: Milestone[] = [
   },
 ];
 
-export type Equipment = { name: string; purpose: string };
+export type Equipment = { name: string; purpose: string; count?: number };
 
 export const EQUIPMENT: Equipment[] = [
+  { name: 'Excavators', purpose: 'Earthwork, cutting & loading', count: 11 },
+  { name: 'Tippers / Dumpers', purpose: 'Material haulage', count: 30 },
   { name: 'Sensor Pavers', purpose: 'Precision bituminous laying' },
   { name: 'Hot Mix Plant', purpose: 'In-house bituminous mix production' },
   { name: 'Concrete Batching Plant', purpose: 'Consistent high-grade RCC' },
+  { name: 'Stone Crusher Plant', purpose: 'In-house aggregate production' },
   { name: 'Vibratory Soil Compactors', purpose: 'Subgrade & embankment compaction' },
   { name: 'Tandem Rollers', purpose: 'Asphalt finishing & density' },
   { name: 'Motor Graders', purpose: 'Precise grading & profiling' },
-  { name: 'Excavators', purpose: 'Earthwork & cutting' },
-  { name: 'Transit Mixers & Tippers', purpose: 'Material logistics' },
+  { name: 'Transit Mixers', purpose: 'Concrete logistics' },
 ];
 
 export type Client = { name: string; abbr: string };

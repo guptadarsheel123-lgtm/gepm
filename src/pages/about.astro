@@ -5,8 +5,11 @@ import SectionHeading from '../components/SectionHeading.astro';
 import Icon from '../components/Icon.astro';
 import Stats from '../components/Stats.astro';
 import CTA from '../components/CTA.astro';
-import { VALUES, TIMELINE } from '../data/content';
+import { VALUES, TIMELINE, TURNOVER } from '../data/content';
 import { SITE } from '../consts';
+
+const maxTurnover = Math.max(...TURNOVER.map((t) => t.amount));
+const inr = (lacs: number) => (lacs / 100).toLocaleString('en-IN', { maximumFractionDigits: 2 });
 ---
 <Layout
   title="About Us"
@@ -162,8 +165,46 @@ import { SITE } from '../consts';
     </div>
   </section>
 
+  <!-- Turnover -->
+  <section id="turnover" class="scroll-mt-24 bg-white py-20">
+    <div class="container-x grid gap-12 lg:grid-cols-12 lg:items-center">
+      <div class="lg:col-span-5">
+        <SectionHeading eyebrow="Revenue" title="A track record of steady growth.">
+          <p>
+            Our turnover reflects consistent delivery and the trust placed in us by
+            government bodies year after year — reaching
+            <strong class="text-brand-900">₹{inr(TURNOVER[TURNOVER.length - 1].amount)} crore</strong>
+            in FY {TURNOVER[TURNOVER.length - 1].fy}.
+          </p>
+        </SectionHeading>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
+          <div class="space-y-5">
+            {TURNOVER.map((t) => (
+              <div>
+                <div class="mb-1.5 flex items-baseline justify-between text-sm">
+                  <span class="font-semibold text-brand-900">FY {t.fy}</span>
+                  <span class="tabular-nums text-slate-600">₹{inr(t.amount)} Cr</span>
+                </div>
+                <div class="h-3 w-full overflow-hidden rounded-full bg-slate-200">
+                  <div
+                    class="h-full rounded-full bg-gradient-to-r from-brand-600 to-accent-500"
+                    style={`width: ${Math.max(6, (t.amount / maxTurnover) * 100)}%`}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p class="mt-6 text-xs text-slate-500">Figures in ₹ crore. Source: company records.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Stats -->
-  <section class="bg-white py-20">
+  <section class="bg-slate-50 py-20">
     <div class="container-x">
       <Stats variant="light" />
     </div>

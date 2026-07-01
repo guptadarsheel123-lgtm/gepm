@@ -6,11 +6,12 @@ const { project, featured = false } = Astro.props;
 
 // Category → icon + visual treatment for the placeholder image band.
 const map: Record<Project['category'], { icon: any; from: string; to: string }> = {
-  Highway:      { icon: 'highway',     from: 'from-brand-800', to: 'to-brand-950' },
-  'RCC Road':   { icon: 'rcc',         from: 'from-brand-700', to: 'to-brand-900' },
-  'Rural Road': { icon: 'road',        from: 'from-brand-600', to: 'to-brand-800' },
-  EPC:          { icon: 'epc',         from: 'from-brand-800', to: 'to-brand-950' },
-  Bridge:       { icon: 'bridge',      from: 'from-brand-700', to: 'to-brand-900' },
+  Highway:        { icon: 'highway', from: 'from-brand-800', to: 'to-brand-950' },
+  'RCC Road':     { icon: 'rcc',     from: 'from-brand-700', to: 'to-brand-900' },
+  'Rural Road':   { icon: 'road',    from: 'from-brand-600', to: 'to-brand-800' },
+  EPC:            { icon: 'epc',     from: 'from-brand-800', to: 'to-brand-950' },
+  Bridge:         { icon: 'bridge',  from: 'from-brand-700', to: 'to-brand-900' },
+  'Cement Plant': { icon: 'epc',     from: 'from-brand-800', to: 'to-brand-950' },
 };
 const v = map[project.category];
 ---

@@ -39,9 +39,8 @@ export const SOCIAL = {
 export const NAV: { label: string; href: string }[] = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about/' },
-  { label: 'Services', href: '/services/' },
   { label: 'Projects', href: '/projects/' },
-  { label: 'Equipment', href: '/equipment/' },
+  { label: 'Fleet', href: '/fleet/' },
   { label: 'Clients', href: '/clients/' },
   { label: 'Careers', href: '/careers/' },
   { label: 'Contact', href: '/contact/' },
